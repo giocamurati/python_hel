@@ -29,14 +29,13 @@ def bruteforce(scores, pt1, pt2, ct1, ct2, merge, bins, bit_bound_start,
     end = bit_bound_end
 
     found = np.zeros((1), dtype=ctypes.c_int)
-    found_key = np.zeros((16), dtype=ctypes.c_ubyte)
 
     # call to the library function
     lib.bruteforce(scores_p, pt1.ctypes, pt2.ctypes, ct1.ctypes,
-            ct2.ctypes, found.ctypes, found_key.ctypes, merge_value,
+            ct2.ctypes, found.ctypes, merge_value,
             nb_bins, start, end)
 
-    return found, found_key
+    return found
 
 def example():
     # example mainly taken from ../hel_lib/main_example.cpp
@@ -49,7 +48,7 @@ def example():
     for bit_bound_end in [10, 30]:
         print ""
         print "TRYING BRUTEFORCE UP TO RANK 2**%d"%bit_bound_end
-        found, found_key = bruteforce(scores, pt1, pt2, ct1, ct2, merge,
+        found = bruteforce(scores, pt1, pt2, ct1, ct2, merge,
                 bins, bit_bound_start, bit_bound_end)
 
         if found:

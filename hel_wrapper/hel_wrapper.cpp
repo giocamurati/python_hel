@@ -4,8 +4,8 @@
 
 void bruteforce(void *scores, unsigned char *pt1, unsigned char *pt2,
                 unsigned char *ct1, unsigned char *ct2, int *found,
-                unsigned char *found_key, int merge_value, int nb_bins,
-                int bit_bound_start, int bit_bound_end){
+                int merge_value, int nb_bins, int bit_bound_start,
+                int bit_bound_end) {
 
   // NOTE: this code was mainly adapted from the example
   // hel_lib/main_example.cpp

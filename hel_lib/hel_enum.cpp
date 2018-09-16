@@ -323,7 +323,12 @@ int print_file_key_original(int** current_key_facto,int test_key_boolean, int up
 				}
 
 				if (found_key){
-					break;
+                                  fprintf(stdout, "\nKEY FOUND!!!\n");
+                                  for (int i = 0; i < NB_SUBKEY_INIT; i++)
+                                    fprintf(stdout, "%02x ", key[i]);
+                                  fprintf(stdout, "\n\n");
+
+                                        break;
 				}
 
 				//if we still have subkeys to enumeration in the current index
@@ -452,10 +457,10 @@ int print_file_key_up_to_key(int** current_key_facto,int enumerate_to_real_key_r
 
 
 				if (found_key){
-					break;
-				}
+                                  break;
+                                }
 
-				//if we still have subkeys to enumeration in the current index
+                                //if we still have subkeys to enumeration in the current index
 				if ( (indexes[current_index]+1) < current_key_facto[current_index][0]){
 					//we go the the next subkey of this index
 					indexes[current_index]++;
