@@ -12,8 +12,9 @@ def bruteforce(scores, pt1, pt2, ct1, ct2, merge, bins, bit_bound_start,
 
     # conversion to be sure about types
     scores = np.array(scores).flatten()
+    scores = np.nan_to_num(scores)
     scores_p = ctypes.c_void_p(scores.ctypes.data)
-
+    
     pt1 = np.array(pt1, dtype=ctypes.c_ubyte)
     pt2 = np.array(pt2, dtype=ctypes.c_ubyte)
     ct1 = np.array(ct1, dtype=ctypes.c_ubyte)
