@@ -108,9 +108,9 @@ int main(){
 
 	//STARTING DECLARATION OF OUTPUT PARAMETERS
 	ZZ rank_estim_rounded,rank_estim_min,rank_estim_max;
-	double time_rank;
-	double time_preprocessing;
-	double time_enum;
+        // double time_rank;
+        double time_preprocessing;
+        double time_enum;
 	ZZ rank_enum_rounded,rank_enum_min,rank_enum_max;
 	//ENDING DECLARATION OF OUTPUT PARAMETERS
 
@@ -136,11 +136,10 @@ int main(){
 	rank_estim_rounded = hel_result_get_estimation_rank(result);
 	rank_estim_min = hel_result_get_estimation_rank_min(result);
 	rank_estim_max = hel_result_get_estimation_rank_max(result);
-	time_rank = hel_result_get_estimation_time(result);
-	//these result accessors are in hel_init.cpp/h
+        // time_rank = hel_result_get_estimation_time(result);
+        // these result accessors are in hel_init.cpp/h
 
-	
-	rval_to_print = conv<RR>(rank_estim_min);
+        rval_to_print = conv<RR>(rank_estim_min);
         cout << "min: 2^" << log(rval_to_print)/rr_log2 <<endl;
         rval_to_print = conv<RR>(rank_estim_rounded);
         cout << "actual rounded: 2^" << log(rval_to_print)/rr_log2 <<endl;

@@ -65,11 +65,10 @@ double hel_min_max_mat(double** mat, int s1, int* s2, double* max_val){
 
 double** merge_mat_score(double** score_mat_init, hel_preprocessing_t* preprocess){
 
-	double** res;
-	int i,j,k;
+  double **res = NULL;
+        int i, j; //,k;
 
-
-	switch(preprocess->merge_value){
+        switch(preprocess->merge_value){
 
 		case 1: // no merge
 

@@ -41,15 +41,15 @@ void compute_single_histogram(hel_algo_mode_t algo_mode, ZZX* hist, int subkey_n
 
 	int i;
 
-	hel_int_list_t** key_list_bin2_current;
+        hel_int_list_t **key_list_bin2_current = NULL;
 
-	int target_bin;
-	int target_index;
-	int already_in;
+        int target_bin;
+        // int target_index;
+        // int already_in;
 
-	int ret_bin_subkey= -1;
+        // int ret_bin_subkey= -1;
 
-	RR tmp_score;
+        RR tmp_score;
 
 
 	ZZ one_zz = conv<ZZ>(1);

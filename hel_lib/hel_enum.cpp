@@ -638,7 +638,7 @@ void start_recursive_enumeration( hel_preprocessing_t* preprocessing, hel_histo_
 
 	*(enum_info->nb_key_enum_found_key) = 0;
 
-	double total_enumerated_so_far=0;
+        // double total_enumerated_so_far=0;
 
     enum_info->found_key_boolean = 0;
 

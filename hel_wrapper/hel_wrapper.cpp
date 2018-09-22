@@ -75,7 +75,7 @@ void bruteforce(void *scores, unsigned char *pt1, unsigned char *pt2,
 
   // STARTING DECLARATION OF OUTPUT PARAMETERS
   ZZ rank_estim_rounded, rank_estim_min, rank_estim_max;
-  double time_rank;
+  // double time_rank;
   double time_preprocessing;
   double time_enum;
   ZZ rank_enum_rounded, rank_enum_min, rank_enum_max;
