@@ -2,8 +2,18 @@ CC  = g++
 OPT = -O3
 LIBS = -lntl -lgmp -lm -lrt
 HEL_LIB = ../hel_lib
+AES_NI = ../aes_ni
 FLAGS = -c -fPIC --std=c++11 -Wall -Winvalid-pch -Wnon-virtual-dtor
 LINK_FLAGS = -Wl,--no-undefined -Wl,--as-needed -Wl,-O1 -shared -fPIC -Wl,--start-group -Wl,-soname,libhel.so -lntl -lgmp -Wl,--end-group
+AES_TYPE := aes_simple
+
+ifeq ($(AES_TYPE), aes_ni)
+	AES_SRC = $(AES_NI)/aes_ni.cpp
+	EXTRA_FLAGS = -msse2 -msse -march=native -maes -o aes.o
+else
+	AES_SRC = $(HEL_LIB)/aes.cpp
+	EXTRA_FLAGS =
+endif
 
 all: hel_example
 
@@ -46,8 +56,8 @@ scores_example_data.o: $(HEL_LIB)/scores_example_data.cpp  $(HEL_LIB)/scores_exa
 hel_util.o: $(HEL_LIB)/hel_util.cpp  $(HEL_LIB)/hel_util.h  $(HEL_LIB)/hel_struct.h 
 	$(CC) $(OPT) $(FLAGS) $(HEL_LIB)/hel_util.cpp  $(LIBS)
 
-aes.o: $(HEL_LIB)/aes.cpp  $(HEL_LIB)/aes.h 
-	$(CC) $(OPT) $(FLAGS) $(HEL_LIB)/aes.cpp  $(LIBS)
+aes.o: $(AES_SRC)  $(HEL_LIB)/aes.h 
+	$(CC) $(OPT) $(FLAGS) $(EXTRA_FLAGS) $(AES_SRC)  $(LIBS)
 
 clean: 
 	rm -f test *.o *.so hel_example

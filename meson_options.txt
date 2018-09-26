@@ -1,0 +1,2 @@
+option('aes_type', type : 'combo', choices : ['aes_simple', 'aes_ni'], value :
+'aes_simple', description: 'Type of AES algorithm used')

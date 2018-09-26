@@ -12,6 +12,18 @@ compiler = meson.get_compiler('cpp')
 ntl = compiler.find_library('ntl')
 gmp = compiler.find_library('gmp')
 
+aes_type = get_option('aes_type')
+if aes_type == 'aes_simple'
+  aes_src = 'hel_lib/aes.cpp'
+  aes = static_library('aes',
+                       'hel_lib/aes.cpp')
+elif aes_type == 'aes_ni'
+  extra_args = ['-msse2', '-msse', '-march=native', '-maes']
+  aes = static_library('aes',
+                       'aes_ni/aes_ni.cpp',
+                       cpp_args: extra_args)
+endif
+
 hel = library('hel',
               'hel_wrapper/hel_wrapper.cpp',
               'hel_lib/hel_execute.cpp',
@@ -19,10 +31,10 @@ hel = library('hel',
               'hel_lib/hel_histo.cpp',
               'hel_lib/hel_init.cpp',
               'hel_lib/hel_util.cpp',
-              'hel_lib/aes.cpp',
               'hel_lib/scores_example.cpp',
               'hel_lib/scores_example_data.cpp',
               dependencies: [ntl, gmp],
+              link_with: aes,
               install: true)
 
 executable('hel_example',

@@ -43,7 +43,7 @@ def example():
     from example_data import scores, pt1, pt2, ct1, ct2
    
     merge = 2
-    bins = 2048
+    bins = 512
     bit_bound_start = 0
 
     for bit_bound_end in [10, 30]:
