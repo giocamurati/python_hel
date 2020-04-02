@@ -7,6 +7,9 @@ All credits for the development of this algorithm and library go to the original
 authors. Have a look at their [paper](https://ia.cr/2015/536)
 and [code](http://perso.uclouvain.be/fstandae/PUBLIS/172.zip).
 
+This project was developed to be used with the
+[Screaming Channels attack code](https://eurecom-s3.github.io/screaming_channels/).
+
 Please feel free to contact us ([Giovanni Camurati](mailto://camurati@eurecom.fr)) for any comment, issue, or question.
 
 # Index
