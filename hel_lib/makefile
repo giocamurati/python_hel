@@ -29,5 +29,5 @@ aes.o: aes.cpp aes.h
 	g++ -O3 -c  aes.cpp -lntl -lgmp -lm -lrt
 
 clean: 
-	rm -f test hel_util.o hel_execute.o hel_enum.o hel_histo.o hel_init.o main.o
-
+	#rm -f test hel_util.o hel_execute.o hel_enum.o hel_histo.o hel_init.o main.o
+	rm -f test *.o
