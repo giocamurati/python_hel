@@ -47,16 +47,16 @@ def example():
     bit_bound_start = 0
 
     for bit_bound_end in [10, 30]:
-        print ""
-        print "TRYING BRUTEFORCE UP TO RANK 2**%d"%bit_bound_end
+        print("")
+        print("TRYING BRUTEFORCE UP TO RANK 2**%d"%bit_bound_end)
         found = bruteforce(scores, pt1, pt2, ct1, ct2, merge,
                 bins, bit_bound_start, bit_bound_end)
 
         if found:
-            print "KEY FOUND!"
+            print("KEY FOUND!")
         else:
-            print "KEY NOT FOUND..."
-            print "Let's try with a higher rank"
+            print("KEY NOT FOUND...")
+            print("Let's try with a higher rank")
 
 if __name__ == "__main__":
     example()
