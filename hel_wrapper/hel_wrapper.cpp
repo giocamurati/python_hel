@@ -1,6 +1,7 @@
 #include "hel_wrapper.h"
 #include "../hel_lib/hel_execute.h"
 #include "../hel_lib/scores_example.h"
+#include "../hel_lib/hel_struct.h"
 
 void bruteforce(void *scores, unsigned char *pt1, unsigned char *pt2,
                 unsigned char *ct1, unsigned char *ct2, int *found,
@@ -143,5 +144,77 @@ void bruteforce(void *scores, unsigned char *pt1, unsigned char *pt2,
   }
   free(texts);
 
+}
+
+void rank(void *scores, unsigned char *known_key, int merge_value, int nb_bins,
+          double *rank_min, double *rank_rounded, double *rank_max,
+          double *time_rank) {
+  // NOTE: this code was mainly adapted from the example
+  // hel_lib/main_example.cpp
+  int i;
+
+  ZZ rank_enum_rounded, rank_enum_min, rank_enum_max;
+  RR rval_to_print; // to convert some ZZ to RR
+  ZZ two;
+  two = 2;
+  RR rr_log2 = log(conv<RR>(two)); // log2 as RR
+
+  double **log_proba = NULL; // will contain the initial log probas
+
+  hel_result_t *result = NULL; // will contain the results of either rank
+                               // estimation or key enumeration
+
+  int *real_key = (int *)malloc(16 * sizeof(int));
+  for (i = 0; i < 16; i++) {
+    real_key[i] = (int)known_key[i];
+  }
+  // load the real subkey dval_to_printues
+
+  // log_proba = get_scores_from_example(21);
+  log_proba = (double **)malloc(NB_SUBKEY_INIT * sizeof(double *));
+
+  for (i = 0; i < NB_SUBKEY_INIT; i++) {
+    log_proba[i] = (double *)malloc(NB_KEY_VALUE_INIT * sizeof(double));
+  }
+
+  for (int i = 0; i < NB_SUBKEY_INIT; i++)
+    for (int j = 0; j < NB_KEY_VALUE_INIT; j++)
+      log_proba[i][j] = ((double *)scores)[i * NB_KEY_VALUE_INIT + j];
+
+  // merge_value = 2;
+  // nb_bin = 2048;
+  // setting rank estimation parameters
+
+  cout << "results rank estimation" << endl;
+  cout << "nb_bins = " << nb_bins << endl;
+  cout << "merge = " << merge_value << endl;
+
+  result = hel_execute_rank(merge_value, nb_bins, log_proba, real_key);
+
+  rank_enum_rounded = hel_result_get_estimation_rank(result);
+  rank_enum_min = hel_result_get_estimation_rank_min(result);
+  rank_enum_max = hel_result_get_estimation_rank_max(result);
+  *time_rank = hel_result_get_estimation_time(result);
+  // these result accessors are in hel_init.cpp/h
+
+  double x;
+  double &xref = x;
+  conv(xref, conv<RR>(log(rank_enum_min)) / rr_log2);
+  *rank_min = x;
+  conv(xref, conv<RR>(log(rank_enum_rounded)) / rr_log2);
+  *rank_rounded = x;
+  conv(xref, conv<RR>(log(rank_enum_max)) / rr_log2);
+  *rank_max = x;
+
+  rval_to_print = conv<RR>(rank_enum_min);
+  cout << "min: 2^" << log(rval_to_print) / rr_log2 << endl;
+  rval_to_print = conv<RR>(rank_enum_rounded);
+  cout << "actual rounded: 2^" << log(rval_to_print) / rr_log2 << endl;
+  rval_to_print = conv<RR>(rank_enum_max);
+  cout << "max: 2^" << log(rval_to_print) / rr_log2 << endl;
+  cout << "time enum: " << *time_rank << " seconds" << endl;
+  cout << endl
+       << endl;
+  hel_free_result(result);
 }
 
